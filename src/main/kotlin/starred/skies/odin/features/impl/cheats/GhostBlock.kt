@@ -1,6 +1,5 @@
 package starred.skies.odin.features.impl.cheats
 
-import com.mojang.blaze3d.platform.InputConstants
 import com.odtheking.odin.clickgui.settings.impl.BooleanSetting
 import com.odtheking.odin.clickgui.settings.impl.KeybindSetting
 import com.odtheking.odin.events.TickEvent
@@ -14,9 +13,10 @@ import net.minecraft.core.BlockPos
 import net.minecraft.network.protocol.game.ServerboundUseItemOnPacket
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.phys.BlockHitResult
-import net.minecraft.world.phys.HitResult
 import org.lwjgl.glfw.GLFW
 import starred.skies.odin.utils.Skit
+import xyz.aerii.library.api.bound
+import xyz.aerii.library.api.pressed
 
 object GhostBlock : Module(
     name = "Ghost Block",
@@ -58,21 +58,27 @@ object GhostBlock : Module(
         this.registerSetting(ghostBlockKey)
 
         on<TickEvent.Start> {
-            if (ghostBlockKey.value.isPressed() && LocationUtils.isInSkyblock) {
-                val hit = mc.hitResult
-                if (hit is BlockHitResult && hit.type == HitResult.Type.BLOCK) {
-                    toAir(hit.blockPos)
-                }
-            }
+            if (!LocationUtils.isInSkyblock) return@on
+            if (mc.screen != null) return@on
+
+            val a = ghostBlockKey.value.value
+            if (!a.bound) return@on
+            if (!a.pressed) return@on
+
+            val hit = (mc.hitResult as? BlockHitResult) ?: return@on
+            toAir(hit.blockPos)
         }
 
         onSend<ServerboundUseItemOnPacket> {
+            if (!LocationUtils.isInSkyblock) return@onSend
+            if (mc.screen != null) return@onSend
+            if (!stonkGhostBlock) return@onSend
+
             val item = mc.player?.getItemInHand(hand) ?: return@onSend
-            if (stonkGhostBlock && LocationUtils.isInSkyblock && item.itemId.contains("PICKAXE", ignoreCase = true)) {
-                if (toAir(hitResult.blockPos)) {
-                    it.cancel()
-                }
-            }
+            if ("PICKAXE" !in item.itemId) return@onSend
+            if (!toAir(hitResult.blockPos)) return@onSend
+
+            it.cancel()
         }
     }
 
@@ -90,12 +96,5 @@ object GhostBlock : Module(
             return true
         }
         return false
-    }
-
-    private fun InputConstants.Key.isPressed(): Boolean {
-        if (this.value == GLFW.GLFW_KEY_UNKNOWN) return false
-        val window = mc.window
-        return if (this.value > 7) InputConstants.isKeyDown(window, this.value)
-        else GLFW.glfwGetMouseButton(window.handle(), this.value) == GLFW.GLFW_PRESS
     }
 }
