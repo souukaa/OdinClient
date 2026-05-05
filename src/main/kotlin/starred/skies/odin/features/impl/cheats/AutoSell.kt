@@ -7,14 +7,17 @@ import com.odtheking.odin.clickgui.settings.impl.SelectorSetting
 import com.odtheking.odin.events.*
 import com.odtheking.odin.events.core.on
 import com.odtheking.odin.features.Module
+import com.odtheking.odin.utils.lore
 import com.odtheking.odin.utils.modMessage
 import com.odtheking.odin.utils.noControlCodes
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.inventory.ClickType
+import net.minecraft.world.item.Items
 import starred.skies.odin.OdinClient
 import starred.skies.odin.utils.Skit
 import starred.skies.odin.utils.guiClick
+import xyz.aerii.library.utils.stripped
 
 object AutoSell : Module(
     name = "Auto Sell",
@@ -33,26 +36,18 @@ object AutoSell : Module(
 
     private var last = 0L
     private var next = 0L
-    private var inGui = false
 
     init {
-        //~ if >=1.21.11 'GuiEvent' -> 'ScreenEvent'
-        on<ScreenEvent.Open> {
-            inGui = screen.title?.string in listOf("Trades", "Booster Cookie", "Farm Merchant", "Ophelia")
-        }
-
-        //~ if >=1.21.11 'GuiEvent' -> 'ScreenEvent'
-        on<ScreenEvent.Close> {
-            inGui = false
-        }
-
         on<TickEvent.Start> {
             if (sellList.isEmpty()) return@on
-            if (!inGui) return@on
-
             val menu = (mc.screen as? AbstractContainerScreen<*>)?.menu ?: return@on
             val now = System.currentTimeMillis()
             if (now - last < next) return@on
+
+            val t0 = menu.slots.getOrNull(49)?.item
+            val a = t0?.item == Items.HOPPER && t0.hoverName?.stripped() == "Sell Item"
+            val b = t0?.lore?.lastOrNull()?.stripped() == "Click to buyback!"
+            if (!a && !b) return@on
 
             for (s in menu.slots) {
                 if (s.container !is Inventory) continue
