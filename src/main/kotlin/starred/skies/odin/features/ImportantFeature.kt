@@ -13,7 +13,7 @@ object ImportantFeature {
     }
 
     private fun fn() {
-2        schedule(72000) {
+        schedule(72000) {
             run {
                 if (!ModSettings.important) return@run
                 if (mc.level == null) return@run
