@@ -62,15 +62,15 @@ object Highlight : Module(
         OdinMod.logger.debug("Loaded ${highlightMap.entries.size}")
 
         on<EntityMetadataEvent> {
-            if (!DungeonUtils.inDungeons) return@on
             if (!entity.isAlive) return@on
+            val d = DungeonUtils.inDungeons
 
             when {
-                highlightWither && entity is WitherBoss && entity.isPowered -> {
+                d && highlightWither && entity is WitherBoss && entity.isPowered -> {
                     witherIds.add(entity.id)
                 }
 
-                !DungeonUtils.inBoss && highlightBats && entity is Bat && !entity.isPassenger && !entity.isInvisible -> {
+                d && !DungeonUtils.inBoss && highlightBats && entity is Bat && !entity.isPassenger && !entity.isInvisible -> {
                     val player = mc.player ?: return@on
                     if (player.distanceTo(entity) < 1.0) {
                         spiritSceptreIds.add(entity.id)
@@ -78,12 +78,12 @@ object Highlight : Module(
                     }
                 }
 
-                !DungeonUtils.inBoss && highlightStar && entity is Player && entity != mc.player && entity.gameProfile.name.contains("Shadow Assassin") -> {
+                d && !DungeonUtils.inBoss && highlightStar && entity is Player && entity != mc.player && entity.gameProfile.name.contains("Shadow Assassin") -> {
                     starredIds.add(entity.id)
                 }
 
                 !DungeonUtils.inBoss && (highlightStar || highlightMap.isNotEmpty()) && entity is ArmorStand -> {
-                    val rawName = entity.displayName?.string?.noControlCodes?.takeIf { !it.equals("armor stand", true) } ?: return@on
+                    val rawName = entity.displayName.string.noControlCodes.takeIf { !it.equals("armor stand", true) } ?: return@on
                     val nameLower = rawName.lowercase()
 
                     if (highlightStar && dungeonMobSpawns.any(rawName::contains)) {
@@ -166,6 +166,6 @@ object Highlight : Module(
     @JvmStatic
     fun getTeammateColor(entity: Entity): Int? {
         if (!enabled || !teammateClassGlow || !DungeonUtils.inDungeons || entity !is Player) return null
-        return DungeonUtils.dungeonTeammates.find { it.name == entity.name?.string }?.clazz?.color?.rgba
+        return DungeonUtils.dungeonTeammates.find { it.name == entity.name.string }?.clazz?.color?.rgba
     }
 }
