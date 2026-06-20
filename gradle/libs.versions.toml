@@ -13,12 +13,16 @@ library = "005"
 
 fabric-api-1-21-10 = "0.138.3+1.21.10"
 fabric-api-1-21-11 = "0.141.3+1.21.11"
+fabric-api-26-1 = "0.144.0+26.1"
 
 odin-act-1-21-10 = "e2cf40d9aa"
 odin-prod-1-21-10 = "b1wkliTK"
 
-odin-act-1-21-11 = "e2cf40d9aa"
+odin-act-1-21-11 = "CwOwZGVZ"
 odin-prod-1-21-11 = "CwOwZGVZ"
+
+odin-act-26-1 = "e2cf40d9aa"
+odin-prod-26-1 = "9ebmAW17"
 
 firmament-1-21-10 = "43.0.0+mc1.21.10"
 parchment-1-21-10 = "2025.10.12"
@@ -40,15 +44,20 @@ commodore = { module = "com.github.stivais:Commodore", version.ref = "commodore"
 
 library-1-21-10 = { module = "com.github.skies-starred.library:library-1.21.10", version.ref = "library" }
 library-1-21-11 = { module = "com.github.skies-starred.library:library-1.21.11", version.ref = "library" }
+library-26-1 = { module = "com.github.skies-starred.library:library-26.1", version.ref = "library" }
 
 fabric-api-1-21-10 = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric-api-1-21-10" }
 fabric-api-1-21-11 = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric-api-1-21-11" }
+fabric-api-26-1 = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric-api-26-1" }
 
 odin-act-1-21-10 = { module = "maven.modrinth:odin", version.ref = "odin-act-1-21-10" }
 odin-prod-1-21-10 = { module = "maven.modrinth:odin", version.ref = "odin-prod-1-21-10" }
 
 odin-act-1-21-11 = { module = "maven.modrinth:odin", version.ref = "odin-act-1-21-11" }
 odin-prod-1-21-11 = { module = "maven.modrinth:odin", version.ref = "odin-prod-1-21-11" }
+
+odin-act-26-1 = { module = "maven.modrinth:odin", version.ref = "odin-act-26-1" }
+odin-prod-26-1 = { module = "maven.modrinth:odin", version.ref = "odin-prod-26-1" }
 
 firmament-1-21-10 = { module = "maven.modrinth:firmament", version.ref = "firmament-1-21-10" }
 firmament-1-21-11 = { module = "maven.modrinth:firmament", version.ref = "firmament-1-21-11" }
@@ -63,6 +72,7 @@ lwjgl-nanovg = { module = "org.lwjgl:lwjgl-nanovg", version.ref = "lwjgl-nanovg"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-loom = { id = "fabric-loom", version.ref = "loom" }
+loom-obf = { id = "fabric-loom", version.ref = "loom" }
+loom = { id = "net.fabricmc.fabric-loom", version.ref = "loom" }
 fletchingTable = { id = "dev.kikugie.fletching-table.fabric", version.ref = "fletchingTable" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
