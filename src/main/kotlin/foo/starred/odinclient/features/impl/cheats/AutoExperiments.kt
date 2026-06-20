@@ -8,7 +8,7 @@ import com.odtheking.odin.features.Module
 import com.odtheking.odin.utils.hasGlint
 import com.odtheking.odin.utils.noControlCodes
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
-import net.minecraft.world.inventory.ClickType
+import net.minecraft.world.inventory.ContainerInput
 import net.minecraft.world.item.Items
 import foo.starred.odinclient.utils.Skit
 import foo.starred.odinclient.utils.guiClick
@@ -67,7 +67,7 @@ object AutoExperiments : Module (
             if (now - lastClick < delay()) return@on
 
             handler.nextClick()?.let { slotId ->
-                guiClick(screen.menu.containerId, slotId, clickType = ClickType.CLONE)
+                guiClick(screen.menu.containerId, slotId, clickType = ContainerInput.CLONE)
                 lastClick = now
             }
 

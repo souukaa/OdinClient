@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import foo.starred.odinclient.utils.Skit
 import foo.starred.odinclient.utils.drawTracer
+import net.minecraft.world.level.block.LevelEvent
 
 object LividSolver : Module(
     name = "Livid Solver (C)",
@@ -77,7 +78,8 @@ object LividSolver : Module(
             if (invulnTime > 0) invulnTime--
         }
 
-        on<WorldEvent.Load> {
+        //~ if >= 26.1 'WorldEvent' -> 'LevelEvent'
+        on<LevelEvent.Load> {
             currentLivid = Livid.HOCKEY
             currentLivid.entity = null
             invulnTime = 0

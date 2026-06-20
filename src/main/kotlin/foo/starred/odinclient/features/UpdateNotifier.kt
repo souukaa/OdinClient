@@ -3,7 +3,7 @@ package foo.starred.odinclient.features
 import com.google.gson.JsonArray
 import com.odtheking.odin.OdinMod.mc
 import com.odtheking.odin.OdinMod.scope
-import com.odtheking.odin.events.WorldEvent
+import com.odtheking.odin.events.*
 import com.odtheking.odin.events.core.on
 import com.odtheking.odin.utils.modMessage
 import com.odtheking.odin.utils.network.WebUtils
@@ -37,7 +37,8 @@ object UpdateNotifier {
     }
 
     init {
-        on<WorldEvent.Load> {
+        //~ if >= 26.1 'WorldEvent' -> 'LevelEvent'
+        on<LevelEvent.Load> {
             if (times++ >= 3) return@on
 
             if (times == 1) {

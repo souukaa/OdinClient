@@ -6,8 +6,7 @@ import com.odtheking.odin.clickgui.settings.impl.BooleanSetting
 import com.odtheking.odin.clickgui.settings.impl.ColorSetting
 import com.odtheking.odin.clickgui.settings.impl.MapSetting
 import com.odtheking.odin.clickgui.settings.impl.SelectorSetting
-import com.odtheking.odin.events.RenderEvent
-import com.odtheking.odin.events.WorldEvent
+import com.odtheking.odin.events.*
 import com.odtheking.odin.events.core.on
 import com.odtheking.odin.features.Module
 import com.odtheking.odin.utils.Color
@@ -136,7 +135,8 @@ object Highlight : Module(
             }
         }
 
-        on<WorldEvent.Load> {
+        //~ if >= 26.1 'WorldEvent' -> 'LevelEvent'
+        on<LevelEvent.Load> {
             starredIds.clear()
             customIds.clear()
             witherIds.clear()

@@ -12,7 +12,7 @@ import com.odtheking.odin.utils.modMessage
 import com.odtheking.odin.utils.noControlCodes
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.world.entity.player.Inventory
-import net.minecraft.world.inventory.ClickType
+import net.minecraft.world.inventory.ContainerInput
 import net.minecraft.world.item.Items
 import foo.starred.odinclient.OdinClient
 import foo.starred.odinclient.utils.Skit
@@ -72,10 +72,10 @@ object AutoSell : Module(
     }
 
     private fun Int.get() = when (this) {
-        0 -> ClickType.QUICK_MOVE
-        1 -> ClickType.CLONE
-        2 -> ClickType.PICKUP
-        else -> ClickType.QUICK_MOVE
+        0 -> ContainerInput.QUICK_MOVE
+        1 -> ContainerInput.CLONE
+        2 -> ContainerInput.PICKUP
+        else -> ContainerInput.QUICK_MOVE
     }
 
     private val defaultItems = arrayOf(

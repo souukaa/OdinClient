@@ -1,84 +1,21 @@
 package foo.starred.odinclient.features.impl.cheats
 
-import com.odtheking.odin.clickgui.settings.impl.NumberSetting
-import com.odtheking.odin.events.GuiEvent
-import com.odtheking.odin.events.*
-import com.odtheking.odin.events.core.on
+import com.odtheking.odin.clickgui.settings.impl.BooleanSetting
 import com.odtheking.odin.features.Module
-import com.odtheking.odin.features.impl/*? >= 1.21.11 {*/.boss/*? } else {*//*.floor7*//*? }*/.TerminalSolver
-import com.odtheking.odin.utils.devMessage
-import com.odtheking.odin.utils.skyblock.dungeon.terminals.TerminalTypes
-import com.odtheking.odin.utils.skyblock.dungeon.terminals.TerminalUtils
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.network.chat.Style
-import foo.starred.odinclient.events.TerminalUpdateEvent
 import foo.starred.odinclient.utils.Skit
 import foo.starred.odinclient.utils.notify
 import java.net.URI
-import java.util.*
 
 object QueueTerms : Module(
     name = "Queue Terms",
     description = "Queues clicks in terminals to ensure every click is registered (only works in custom term gui).",
     category = Skit.CHEATS
 ) {
-    private val dispatchDelay by NumberSetting("Dispatch Delay", 140L, 140L, 300L, unit = "ms", desc = "The delay between each click.")
-    private data class Click(val slot: Int, val button: Int)
-    private val queue: Queue<Click> = LinkedList()
-    private var lastClickTime = 0L
-
-    init {
-        on<GuiEvent.CustomTermGuiClick> {
-            with(TerminalUtils.currentTerm ?: return@on) {
-                if (
-                    type == TerminalTypes.MELODY ||
-                    //~ if >= 1.21.11 'TerminalSolver.renderType != 1' -> '!TerminalSolver.customGuiEnabled'
-                    !TerminalSolver.customGuiEnabled ||
-                    !isClicked ||
-                    !canClick(slot, button)
-                ) return@on
-
-                queue.offer(Click(slot, button))
-                simulateClick(slot, button)
-                devMessage("§aQueued click on slot $slot")
-                cancel()
-            }
-        }
-
-        //~ if >=1.21.11 'GuiEvent.DrawBackground' -> 'ScreenEvent.Render'
-        on<ScreenEvent.Render> {
-            with(TerminalUtils.currentTerm ?: return@on) {
-                if (
-                    type == TerminalTypes.MELODY ||
-                    //~ if >= 1.21.11 'TerminalSolver.renderType != 1' -> '!TerminalSolver.customGuiEnabled'
-                    !TerminalSolver.customGuiEnabled ||
-                    System.currentTimeMillis() - lastClickTime < dispatchDelay ||
-                    queue.isEmpty() ||
-                    isClicked
-                ) return@on
-
-                val click = queue.poll() ?: return@on
-
-                click(click.slot, click.button, false)
-                devMessage("§dDispatched click on slot ${click.slot}")
-                lastClickTime = System.currentTimeMillis()
-            }
-        }
-
-        on<TerminalUpdateEvent> {
-            with (TerminalUtils.currentTerm ?: return@on) {
-                //~ if >= 1.21.11 'TerminalSolver.renderType != 1' -> '!TerminalSolver.customGuiEnabled'
-                if (!TerminalSolver.customGuiEnabled || queue.isEmpty()) return@on
-                queue.forEach { simulateClick(it.slot, it.button) }
-            }
-        }
-
-        on<TerminalEvent.Close> {
-            queue.clear()
-        }
-    }
+    private val hover by BooleanSetting("HOVER HERE!!!", true, "Please do not use this module, look into using another mod.")
 
     override fun onEnable() {
         super.onEnable()

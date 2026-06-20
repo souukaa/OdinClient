@@ -32,10 +32,12 @@ import kotlin.math.atan2
 import kotlin.math.sqrt
 
 object AutoDojo : Module(
-    name = "Auto Dojo",
+    name = "Auto Dojo (!!!)",
     description = "Automatically completes Hypixel SkyBlock dojo tests",
     category = Skit.CHEATS
 ) {
+    private val hover by BooleanSetting("HOVER HERE!!!", true, "Use at your own risk.")
+
     private val enableControl by BooleanSetting("Enable Control", true, desc = "Automatically aim at skeleton in Test of Control")
     private val controlPredictionTicks by NumberSetting("Control Prediction Ticks", 5.0, 1.0, 20.0, 1.0, desc = "How many ticks ahead to predict skeleton movement")
     private val enableMastery by BooleanSetting("Enable Mastery", true, desc = "Automatically shoot blocks in Test of Mastery")

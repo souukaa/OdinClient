@@ -4,10 +4,7 @@ import com.odtheking.odin.clickgui.settings.Setting.Companion.withDependency
 import com.odtheking.odin.clickgui.settings.impl.BooleanSetting
 import com.odtheking.odin.clickgui.settings.impl.ColorSetting
 import com.odtheking.odin.clickgui.settings.impl.SelectorSetting
-import com.odtheking.odin.events.BlockUpdateEvent
-import com.odtheking.odin.events.RenderEvent
-import com.odtheking.odin.events.TickEvent
-import com.odtheking.odin.events.WorldEvent
+import com.odtheking.odin.events.*
 import com.odtheking.odin.events.core.on
 import com.odtheking.odin.features.Module
 import com.odtheking.odin.utils.Colors
@@ -96,7 +93,8 @@ object SpiritBear : Module(
             if (timer > 0) timer--
         }
 
-        on<WorldEvent.Load> {
+        //~ if >= 26.1 'WorldEvent' -> 'LevelEvent'
+        on<LevelEvent.Load> {
             kills = 0
             timer = -1
         }

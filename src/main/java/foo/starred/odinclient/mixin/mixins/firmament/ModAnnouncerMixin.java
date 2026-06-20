@@ -1,6 +1,7 @@
 package foo.starred.odinclient.mixin.mixins.firmament;
 
-import moe.nea.firmament.features.misc.ModAnnouncer;
+//? if < 26.1 {
+/*import moe.nea.firmament.features.misc.ModAnnouncer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -14,3 +15,4 @@ public class ModAnnouncerMixin {
         System.out.println("Firmament server mod list packet cancelled.");
     }
 }
+*///? }

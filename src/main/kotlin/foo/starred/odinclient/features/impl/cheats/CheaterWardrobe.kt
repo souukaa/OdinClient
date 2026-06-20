@@ -13,10 +13,11 @@ import com.odtheking.odin.utils.noControlCodes
 import com.odtheking.odin.utils.render.textDim
 import com.odtheking.odin.utils.sendCommand
 import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket
-import net.minecraft.world.inventory.ClickType
+import net.minecraft.world.inventory.ContainerInput
 import org.lwjgl.glfw.GLFW
 import foo.starred.odinclient.mixin.accessors.KeyMappingAccessor
 import foo.starred.odinclient.utils.Skit
+import foo.starred.odinclient.utils.guiClick
 
 object CheaterWardrobe : Module(
     name = "Cheater Wardrobe",
@@ -118,7 +119,7 @@ object CheaterWardrobe : Module(
                 if (slot != null && !slot.item.isEmpty) {
                     // Equipment check
                     if (!slot.item.itemId.contains("lime_dye", true)) {
-                        mc.gameMode?.handleInventoryMouseClick(menu.containerId, pendingSlotIndex, 0, ClickType.PICKUP, player)
+                        guiClick(menu.containerId, pendingSlotIndex)
                     }
                     
                     // Close the background menu on both client and server

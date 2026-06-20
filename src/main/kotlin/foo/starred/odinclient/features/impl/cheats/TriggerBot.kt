@@ -4,8 +4,7 @@ import com.odtheking.odin.clickgui.settings.Setting.Companion.withDependency
 import com.odtheking.odin.clickgui.settings.impl.BooleanSetting
 import com.odtheking.odin.clickgui.settings.impl.DropdownSetting
 import com.odtheking.odin.clickgui.settings.impl.NumberSetting
-import com.odtheking.odin.events.TickEvent
-import com.odtheking.odin.events.WorldEvent
+import com.odtheking.odin.events.*
 import com.odtheking.odin.events.core.on
 import com.odtheking.odin.features.Module
 import com.odtheking.odin.utils.equalsOneOf
@@ -21,12 +20,10 @@ import foo.starred.odinclient.utils.Skit
 import foo.starred.odinclient.utils.rightClick
 
 object TriggerBot : Module(
-    name = "TriggerBot (!!!)",
-    description = "Triggers bots - bots trigger, Untested.",
+    name = "TriggerBot",
+    description = "Trigger bots for things!",
     category = Skit.CHEATS
 ) {
-    @Suppress("unused")
-    private val UAYOR by BooleanSetting("Use at your own risk", false, desc = "TriggerBot is untested, use at your own risk!")
     private val crystalDropdown by DropdownSetting("Crystal Dropdown", false)
     private val crystal by BooleanSetting("Crystal", false, desc = "Automatically takes and places crystals.").withDependency { crystalDropdown }
     private val take by BooleanSetting("Take", true, desc = "Takes crystals.").withDependency { crystal && crystalDropdown }
@@ -93,7 +90,8 @@ object TriggerBot : Module(
             clicked[pos] = n
         }
 
-        on<WorldEvent.Load> {
+        //~ if >= 26.1 'WorldEvent' -> 'LevelEvent'
+        on<LevelEvent.Load> {
             clicked.clear()
         }
     }
