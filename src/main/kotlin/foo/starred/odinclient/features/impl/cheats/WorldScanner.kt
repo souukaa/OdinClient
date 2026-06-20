@@ -303,7 +303,7 @@ object WorldScanner : Module(
         val sections = chunk.sections
         if (sectionIndex < 0 || sectionIndex >= sections.size) return Blocks.AIR.defaultBlockState()
         val section = sections[sectionIndex]
-        if (section == null || section.hasOnlyAir()) return Blocks.AIR.defaultBlockState()
+        if (section.hasOnlyAir()) return Blocks.AIR.defaultBlockState()
         return section.getBlockState(x, y and 15, z)
     }
 

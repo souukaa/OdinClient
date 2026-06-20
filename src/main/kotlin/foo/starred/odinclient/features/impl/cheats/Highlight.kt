@@ -83,7 +83,7 @@ object Highlight : Module(
                 }
 
                 !DungeonUtils.inBoss && (highlightStar || highlightMap.isNotEmpty()) && entity is ArmorStand -> {
-                    val rawName = entity.displayName?.string?.noControlCodes?.takeIf { !it.equals("armor stand", true) } ?: return@on
+                    val rawName = entity.customName?.string?.noControlCodes ?: return@on
                     val nameLower = rawName.lowercase()
 
                     if (highlightStar && dungeonMobSpawns.any(rawName::contains)) {
@@ -166,6 +166,6 @@ object Highlight : Module(
     @JvmStatic
     fun getTeammateColor(entity: Entity): Int? {
         if (!enabled || !teammateClassGlow || !DungeonUtils.inDungeons || entity !is Player) return null
-        return DungeonUtils.dungeonTeammates.find { it.name == entity.name?.string }?.clazz?.color?.rgba
+        return DungeonUtils.dungeonTeammates.find { it.name == entity.name.string }?.clazz?.color?.rgba
     }
 }

@@ -61,8 +61,8 @@ object TriggerBot : Module(
             }
 
             if (!place) return@on
-            if (e.name?.string?.noControlCodes != "Energy Crystal Missing") return@on
-            if (p.mainHandItem?.displayName?.string?.noControlCodes != "Energy Crystal") return@on
+            if (e.name.string.noControlCodes != "Energy Crystal Missing") return@on
+            if (p.mainHandItem.displayName.string.noControlCodes != "Energy Crystal") return@on
 
             rightClick()
             click = System.currentTimeMillis()
@@ -80,7 +80,7 @@ object TriggerBot : Module(
             if (hit.type != HitResult.Type.BLOCK) return@on
 
             val pos = (hit as? BlockHitResult)?.blockPos ?: return@on
-            val state = world.getBlockState(pos) ?: return@on
+            val state = world.getBlockState(pos)
 
             val n = System.currentTimeMillis()
             clicked.entries.removeIf { it.value + 1000L <= n }

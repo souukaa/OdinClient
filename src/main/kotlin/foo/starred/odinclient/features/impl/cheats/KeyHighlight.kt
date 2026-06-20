@@ -36,10 +36,10 @@ object KeyHighlight : Module(
         on<EntityMetadataEvent> {
             if (!DungeonUtils.inDungeons || DungeonUtils.inBoss) return@on
             if (currentKey?.entity == entity) return@on
-            currentKey = KeyType.entries.find { it.displayName == entity.name?.string } ?: return@on
+            currentKey = KeyType.entries.find { it.displayName == entity.customName?.string } ?: return@on
             currentKey?.entity = entity
 
-            if (announceKeySpawn) alert("§${currentKey?.colorCode}${entity.name?.string}§7 spawned!")
+            if (announceKeySpawn) alert("§${currentKey?.colorCode}${entity.customName?.string}§7 spawned!")
         }
 
         on<RenderEvent.Extract> {

@@ -31,7 +31,7 @@ object AutoExperiments : Module (
     init {
         //~ if >= 1.21.11 'GuiEvent' -> 'ScreenEvent' {
         on<ScreenEvent.Open> {
-            val title = screen.title?.string ?: return@on
+            val title = screen.title.string
 
             handler = when {
                 title.startsWith("Chronomatron (") -> ChronomatronHandler()

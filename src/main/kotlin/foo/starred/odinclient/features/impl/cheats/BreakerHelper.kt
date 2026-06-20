@@ -65,7 +65,7 @@ object BreakerHelper : Module(
             if (item.itemId != "DUNGEONBREAKER") return@on
 
             val state = mc.level?.getBlockState(pos) ?: return@on
-            val block = state.block ?: return@on
+            val block = state.block
 
             if (block !in blacklistedBlocks && !DungeonUtils.isSecret(state, pos)) return@on
 
@@ -73,8 +73,8 @@ object BreakerHelper : Module(
         }
 
         onReceive<ClientboundContainerSetSlotPacket> {
-            if (!DungeonUtils.inDungeons || item?.itemId != "DUNGEONBREAKER") return@onReceive
-            item?.loreString?.firstNotNullOfOrNull { chargesRegex.find(it) }?.let { match ->
+            if (!DungeonUtils.inDungeons || item.itemId != "DUNGEONBREAKER") return@onReceive
+            item.loreString.firstNotNullOfOrNull { chargesRegex.find(it) }?.let { match ->
                 charges = match.groupValues[1].toIntOrNull() ?: 0
                 max = match.groupValues[2].toIntOrNull() ?: 0
             }
@@ -90,7 +90,7 @@ object BreakerHelper : Module(
         if (player.mainHandItem.itemId != "DUNGEONBREAKER") return
 
         if ((DungeonUtils.inBoss && !DungeonUtils.isFloor(7)) || DungeonUtils.currentRoom.equalsOneOf(RoomType.PUZZLE, RoomType.FAIRY)) return
-        val state = level.getBlockState(pos) ?: return
+        val state = level.getBlockState(pos)
 
         if (DungeonUtils.isSecret(state, pos)) return
         if (!player.hasEffect(MobEffects.MINING_FATIGUE)) return

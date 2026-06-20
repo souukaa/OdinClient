@@ -78,9 +78,9 @@ object AutoGFS : Module(
         if (inSkyblock && !LocationUtils.isInSkyblock) return
         if (!inSkyblock && !((inKuudra && KuudraUtils.inKuudra) || (inDungeon && DungeonUtils.inDungeons))) return
 
-        if (refillLeap) inventory.find { it?.itemId == "SPIRIT_LEAP" }?.also { fillItemFromSack(16, "SPIRIT_LEAP", "spirit_leap", false) }
-        if (refillPearl) inventory.find { it?.itemId == "ENDER_PEARL" }?.also { fillItemFromSack(16, "ENDER_PEARL", "ender_pearl", false) }
-        if (refillJerry) inventory.find { it?.itemId == "INFLATABLE_JERRY" }?.also { fillItemFromSack(64, "INFLATABLE_JERRY", "inflatable_jerry", false) }
-        if (refillTNT) inventory.find { it?.itemId == "SUPERBOOM_TNT" }?.also { fillItemFromSack(64, "SUPERBOOM_TNT", "superboom_tnt", false) }
+        if (refillLeap) inventory.find { it.itemId == "SPIRIT_LEAP" }?.also { fillItemFromSack(16, "SPIRIT_LEAP", "spirit_leap", false) }
+        if (refillPearl) inventory.find { it.itemId == "ENDER_PEARL" }?.also { fillItemFromSack(16, "ENDER_PEARL", "ender_pearl", false) }
+        if (refillJerry) inventory.find { it.itemId == "INFLATABLE_JERRY" }?.also { fillItemFromSack(64, "INFLATABLE_JERRY", "inflatable_jerry", false) }
+        if (refillTNT) inventory.find { it.itemId == "SUPERBOOM_TNT" }?.also { fillItemFromSack(64, "SUPERBOOM_TNT", "superboom_tnt", false) }
     }
 }

@@ -33,7 +33,7 @@ object EtherwarpHelper : Module(
             if (buttonInfo.button != 0) return@on
 
             val player = mc.player ?: return@on
-            if (player.mainHandItem?.etherwarp() != true) return@on
+            if (!player.mainHandItem.etherwarp()) return@on
 
             val a = player.isCrouching
             if (!a && !lceShift) return@on

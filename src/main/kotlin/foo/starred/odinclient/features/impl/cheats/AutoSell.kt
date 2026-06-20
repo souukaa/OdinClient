@@ -45,7 +45,7 @@ object AutoSell : Module(
             if (now - last < next) return@on
 
             val t0 = menu.slots.getOrNull(49)?.item
-            val a = t0?.item == Items.HOPPER && t0.hoverName?.stripped() == "Sell Item"
+            val a = t0?.item == Items.HOPPER && t0.hoverName.stripped() == "Sell Item"
             val b = t0?.lore?.lastOrNull()?.stripped() == "Click to buyback!"
             if (!a && !b) return@on
 
@@ -53,7 +53,7 @@ object AutoSell : Module(
                 if (s.container !is Inventory) continue
 
                 val stack = s.item.takeIf { !it.isEmpty } ?: continue
-                val name = stack.hoverName?.string?.noControlCodes ?: continue
+                val name = stack.hoverName.string.noControlCodes
 
                 if (!sellList.any { name.contains(it, true) }) continue
                 if (blacklist.any { name.contains(it, true) }) continue

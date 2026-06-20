@@ -184,9 +184,7 @@ object AutoDojo : Module(
         // Clean up expired blocks and verify blocks still exist
         masteryBlocks.removeAll { block ->
             if (block.expiryTime < now) return@removeAll true
-
-            val state = level.getBlockState(BlockPos(block.x, block.y, block.z))
-            state?.block != Blocks.YELLOW_WOOL
+            level.getBlockState(BlockPos(block.x, block.y, block.z)).block != Blocks.YELLOW_WOOL
         }
 
         // Handle redrawing sequence (2 ticks delay)
@@ -290,7 +288,7 @@ object AutoDojo : Module(
                     val pos = playerPos.offset(x, y, z)
                     val dist = sqrt((x * x + z * z).toDouble())
                     if (dist > 25) continue
-                    if (level.getBlockState(pos)?.block != Blocks.YELLOW_WOOL) continue
+                    if (level.getBlockState(pos).block != Blocks.YELLOW_WOOL) continue
 
                     val isDuplicate = masteryBlocks.any { it.x == pos.x && it.z == pos.z && it.color == "yellow" }
                     if (!isDuplicate) masteryBlocks.add(MasteryBlock(pos.x, pos.y, pos.z, "yellow", now + 3500))
@@ -306,7 +304,7 @@ object AutoDojo : Module(
 
     private fun findItemSlot(it: Item): Int? {
         val player = mc.player ?: return null
-        for (i in 0..8) if (player.inventory.getItem(i)?.item  == it) return i
+        for (i in 0..8) if (player.inventory.getItem(i).item  == it) return i
         return null
     }
 

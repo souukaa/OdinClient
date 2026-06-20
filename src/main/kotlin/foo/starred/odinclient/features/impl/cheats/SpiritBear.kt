@@ -74,12 +74,11 @@ object SpiritBear : Module(
 
             val entities = mc.level?.entitiesForRendering() ?: return@on
             for (e in entities) {
-                val entity = e ?: continue
-                if (entity.isInvisible) continue
-                val entityName = entity.name?.string ?: continue
+                if (e.isInvisible) continue
+                val entityName = e.name.string
                 if (!entityName.startsWith("spirit bear", true)) continue
 
-                this@SpiritBear.entity = entity
+                this@SpiritBear.entity = e
             }
 
             if (entity?.isAlive == false) entity = null

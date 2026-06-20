@@ -91,7 +91,7 @@ object Trajectories : Module(
             }
 
             if (pearls && heldItem.item is EnderpearlItem) {
-                if (heldItem.displayName?.string?.contains("Spirit") == true) return@on
+                if (heldItem.displayName.string.contains("Spirit")) return@on
 
                 val (a, b) = calculateTrajectory(0f, isPearl = true)
 
@@ -146,7 +146,7 @@ object Trajectories : Module(
 
             val blockHit = level.clip(ClipContext(pos, pos.add(motion), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player))
             if (blockHit.type == HitResult.Type.BLOCK) {
-                rayTraceHit = blockHit as BlockHitResult
+                rayTraceHit = blockHit
                 lines.add(blockHit.location)
 
                 if (boxes) {
@@ -176,7 +176,6 @@ object Trajectories : Module(
             Direction.DOWN, Direction.UP -> hit.location.addVec(-0.15 * planeSize, -0.02, -0.15 * planeSize) to hit.location.addVec(0.15 * planeSize, 0.02, 0.15 * planeSize)
             Direction.NORTH, Direction.SOUTH -> hit.location.addVec(-0.15 * planeSize, -0.15 * planeSize, -0.02) to hit.location.addVec(0.15 * planeSize, 0.15 * planeSize, 0.02)
             Direction.WEST, Direction.EAST -> hit.location.addVec(-0.02, -0.15 * planeSize, -0.15 * planeSize) to hit.location.addVec(0.02, 0.15 * planeSize, 0.15 * planeSize)
-            else -> return
         }
 
         drawFilledBox(AABB(vec1.x, vec1.y, vec1.z, vec2.x, vec2.y, vec2.z), color.multiplyAlpha(0.5f), depth)

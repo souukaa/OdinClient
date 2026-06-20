@@ -87,7 +87,7 @@ object AutoSuperboom : Module(
 
     private fun fn(): Int? {
         val player = mc.player ?: return null
-        for (i in 0..8) if (player.inventory.getItem(i)?.itemId in set) return i
+        for (i in 0..8) if (player.inventory.getItem(i).itemId in set) return i
         return null
     }
 

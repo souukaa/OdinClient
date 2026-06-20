@@ -93,5 +93,5 @@ object InventoryWalk : Module(
     }
 
     private fun Screen.focused(): Boolean =
-        this is ChatScreen || this is AbstractSignEditScreen || children()?.any { it is EditBox && it.isFocused } == true
+        this is ChatScreen || this is AbstractSignEditScreen || children().any { it is EditBox && it.isFocused }
 }
