@@ -1,6 +1,6 @@
 {
   "required": false,
-  "package": "starred.skies.odin.mixin",
+  "package": "foo.starred.odinclient.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [],
   "injectors": {

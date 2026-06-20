@@ -13,7 +13,7 @@
     "client": [
       {
         "adapter": "kotlin",
-        "value": "starred.skies.odin.OdinClient"
+        "value": "foo.starred.odinclient.OdinClient"
       }
     ]
   },
