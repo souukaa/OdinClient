@@ -1,21 +1,23 @@
 package foo.starred.odinclient.utils
 
+import com.mojang.blaze3d.platform.InputConstants
 import com.odtheking.odin.OdinMod.mc
 import net.minecraft.client.KeyMapping
 import net.minecraft.world.inventory.ContainerInput
 import foo.starred.odinclient.mixin.accessors.KeyMappingAccessor
 
+private fun KeyMapping.boundKey(): InputConstants.Key? =
+    (this as? KeyMappingAccessor)?.boundKey
+
 fun rightClick() {
-    val options = mc.options ?: return
-    val key = (options.keyUse as KeyMappingAccessor).boundKey
+    val key = mc.options?.keyUse?.boundKey() ?: return
     KeyMapping.set(key, true)
     KeyMapping.click(key)
     KeyMapping.set(key, false)
 }
 
 fun leftClick() {
-    val options = mc.options ?: return
-    val key = (options.keyAttack as KeyMappingAccessor).boundKey
+    val key = mc.options?.keyAttack?.boundKey() ?: return
     KeyMapping.set(key, true)
     KeyMapping.click(key)
     KeyMapping.set(key, false)
